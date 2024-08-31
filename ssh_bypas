@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Ask for the server IP
+read -p "Enter the server IP: " SERVER_IP
+
+# Set the key pair name
+KEY_PAIR_NAME="my_key"
+
+# Check if the public key already exists
+if [ -f "~/.ssh/${KEY_PAIR_NAME}.pub" ]; then
+  echo "Public key already exists, skipping creation..."
+else
+  # Create a new SSH key pair
+  ssh-keygen -t rsa -b 2048 -f ~/.ssh/${KEY_PAIR_NAME}
+  echo "SSH key pair created successfully!"
+fi
+
+# Send the public key to the server
+ssh-copy-id -i ~/.ssh/${KEY_PAIR_NAME}.pub ${SERVER_IP}
+echo "Public key sent to the server successfully!"
