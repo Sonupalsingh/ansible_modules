@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Ask for username and password
+read -p "Enter your username: " username
+read -sp "Enter your password: " password
+echo
+
+# Set up subscription account
+sudo subscription-manager register --username=$username --password=$password
+
+# Enable the Red Hat repositories
+sudo subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms
+sudo subscription-manager repos --enable=rhel-9-for-x86_64-appstream-rpms
+sudo subscription-manager repos --enable=rhel-9-for-x86_64-crb-rpms
+
+# Update and upgrade EPEL
+sudo dnf update -y
+sudo dnf upgrade -y
+
+# Install EPEL repository
+sudo dnf install -y epel-release
+
+# Install Ansible
+sudo dnf install -y ansible
+
+# Configure Ansible
+sudo ansible --version
+
+echo "Ansible installed successfully!"
+
+# Verify subscription status
+sudo subscription-manager diagnose
+
+# List enabled repositories
+sudo subscription-manager repos --list
