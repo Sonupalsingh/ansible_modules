@@ -1,0 +1,129 @@
+---
+- name: Run a command using the shell module
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "echo 'Hello, World!' >> /tmp/hello.txt"
+
+##########################################
+
+
+---
+- name: Run a script that prompts for a password
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the script
+    shell:
+      cmd: "myscript.sh"
+      prompt: "Enter password: "
+
+
+
+###############################################
+
+
+---
+- name: Run multiple commands using the shell module
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the commands
+    shell:
+      cmd: |
+        cd /tmp
+        mkdir mydir
+        echo "Hello, World!" > mydir/hello.txt
+
+
+###################################################
+
+
+
+---
+- name: Run a command with environment variables
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "printenv MY_VAR"
+      environment:
+        MY_VAR: "Hello, World!"
+
+
+
+################################################
+
+
+---
+- name: Run a command with input
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "read -p 'Enter your name: ' name; echo 'Hello, $name!'"
+
+#################################################
+
+
+
+
+---
+- name: Run a command with a timeout
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "sleep 10"
+      timeout: 5
+
+
+################################################
+
+
+
+---
+- name: Run a command with a working directory
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "ls -l"
+      chdir: "/tmp"
+
+
+##################################################
+
+
+
+---
+- name: Run a command with a specific shell
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Run the command
+    shell:
+      cmd: "echo 'Hello, World!'"
+      shell: "/bin/bash"
+
+##############################################
+
+
+
+
+
+
