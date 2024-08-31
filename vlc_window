@@ -1,0 +1,15 @@
+---
+- name: Install VLC media player on Windows
+  hosts: windows
+  become: yes
+
+  tasks:
+  - name: Download VLC executable
+    win_get_url:
+      url: https://get.videolan.org/vlc/3.0.21/win32/vlc-3.0.21-win32.exe
+      dest: C:\Temp\vlc.exe
+
+  - name: Install VLC
+    win_package:
+      path: C:\Temp\vlc.exe
+      state: present
